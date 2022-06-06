@@ -32,12 +32,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <h1 class="text-center">Create new Project</h1>
+                <h1 class="text-center">Update Project</h1>
                 <div class="card-body">
                     <!--/*@thymesVar id="project" type="com.colossus.projectmanagement.entity.Project"*/-->
-                    <form th:action="@{/projects}" th:object="${project}" method="post">
+                    <form th:action="@{/projects/{id}(id = ${project.id})}" th:object="${project}" method="post">
                         <div class="form-group">
-                            <label>Project's name</label>
+                            <label>Project name</label>
                             <input
                                 type="text"
                                 name="project name"
@@ -47,17 +47,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Date of creation</label>
-                            <input
-                                    type="date"
-                                    name="project date of creation"
-                                    th:field = "${project.dateOfCreation}"
-                                    class="form-control"
-                                    placeholder="yyyy-MMM-dd"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Project's wasted days</label>
+                            <label>Project wasted days</label>
                             <input
                                     type="text"
                                     name="wasted days"
@@ -67,33 +57,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Project's description</label>
+                            <label>Project description</label>
                             <input
                                     type="text"
                                     name="description"
                                     th:field = "*{description}"
                                     class="form-control"
                                     placeholder="Enter description"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Project's path in DB</label>
-                            <input
-                                    type="text"
-                                    name="path in DB"
-                                    th:field = "*{dbPath}"
-                                    class="form-control"
-                                    placeholder="Enter path in DB"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Project's tags</label>
-                            <input
-                                    type="text"
-                                    name="tags"
-                                    th:field = "*{tags}"
-                                    class="form-control"
-                                    placeholder="Enter new tags"/>
                         </div>
 
                         <div class="box-footer">

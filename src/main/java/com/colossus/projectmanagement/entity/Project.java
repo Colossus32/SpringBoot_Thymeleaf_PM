@@ -16,6 +16,7 @@ public class Project {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private double wastedDays;
 
     private String description;
@@ -23,20 +24,20 @@ public class Project {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfCreation;
 
-    /*
-    string tags
-    string pathindb
-    designers[]
-     */
+    private String tags;
+
+    private String dbPath;
 
     public Project() {
     }
 
-    public Project(String name, double wastedDays, String description, Date dateOfCreaation) {
+    public Project(String name, double wastedDays, String description, Date dateOfCreation, String tags, String DBPath) {
         this.name = name;
         this.wastedDays = wastedDays;
         this.description = description;
-        this.dateOfCreation = dateOfCreaation;
+        this.dateOfCreation = dateOfCreation;
+        this.tags = tags;
+        this.dbPath = DBPath;
     }
 
     public long getId() {
@@ -79,4 +80,19 @@ public class Project {
         this.dateOfCreation = dateOfCreaation;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getDbPath() {
+        return dbPath;
+    }
+
+    public void setDbPath(String dbPath) {
+        this.dbPath = dbPath;
+    }
 }

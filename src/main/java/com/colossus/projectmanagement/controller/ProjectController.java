@@ -56,8 +56,12 @@ public class ProjectController {
         //rewrite it
         projectFromDB.setId(id);
         projectFromDB.setName(project.getName());
+        projectFromDB.setDateOfCreation(project.getDateOfCreation());
         projectFromDB.setWastedDays(project.getWastedDays());
         projectFromDB.setDescription(project.getDescription());
+        projectFromDB.setDbPath(project.getDbPath());
+        projectFromDB.setTags(project.getTags());
+
         //save it to DB
         service.updateProject(projectFromDB);
 
