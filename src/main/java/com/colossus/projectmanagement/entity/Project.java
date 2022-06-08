@@ -28,16 +28,19 @@ public class Project {
 
     private String dbPath;
 
+    private double costs;
+
     public Project() {
     }
 
-    public Project(String name, double wastedDays, String description, Date dateOfCreation, String tags, String DBPath) {
+    public Project(String name, double wastedDays, String description, Date dateOfCreation, String tags, String dbPath, double costs) {
         this.name = name;
         this.wastedDays = wastedDays;
         this.description = description;
         this.dateOfCreation = dateOfCreation;
         this.tags = tags;
-        this.dbPath = DBPath;
+        this.dbPath = dbPath;
+        this.costs = costs;
     }
 
     public long getId() {
@@ -94,5 +97,13 @@ public class Project {
 
     public void setDbPath(String dbPath) {
         this.dbPath = dbPath;
+    }
+
+    public double getCosts() {
+        return costs;
+    }
+
+    public void setCosts(double costs) {
+        this.costs = costs;
     }
 }

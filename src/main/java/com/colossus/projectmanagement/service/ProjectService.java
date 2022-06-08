@@ -10,5 +10,5 @@ public interface ProjectService {
     Project getProjectById(long id);
     Project updateProject(Project project);
     void deleteProjectById(long id);
-
+    String getReport();
 }

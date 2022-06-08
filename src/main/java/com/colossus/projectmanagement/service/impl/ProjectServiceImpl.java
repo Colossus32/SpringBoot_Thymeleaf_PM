@@ -5,6 +5,7 @@ import com.colossus.projectmanagement.repository.ProjectRepository;
 import com.colossus.projectmanagement.service.ProjectService;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,5 +44,22 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteProjectById(long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public String getReport() {
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR) + 1900;
+        //int month = calendar.get(Calendar.MONTH);
+
+        StringBuilder result = new StringBuilder("");
+
+        repository.findAll().stream()
+                .filter(project -> project.getDateOfCreation().getYear() == year)
+                //.filter(project -> project.getDateOfCreation().getMonth() == month)
+                .forEach(project -> result.append(project.getId()).append(" ").append(project.getName()).append("\n"));
+
+        return "result.toString()";
     }
 }

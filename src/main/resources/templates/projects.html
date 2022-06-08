@@ -49,6 +49,7 @@
             <th>Description</th>
             <th>Path in DB</th>
             <th>Tags</th>
+            <th>Costs</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -57,11 +58,13 @@
         <!--/*@thymesVar id="projects" type="java.util.List<com.colossus.projectmanagement.entity.Project>"*/-->
         <tr th:each="project : ${projects}">
             <td th:text="${project.name}"></td>
-            <td th:text="${#dates.format(project.dateOfCreation, 'dd-MMM-yyyy')}"></td>
+            <td th:text="${#dates.format(project.dateOfCreation, 'dd-MMMM-yyyy')}"></td>
             <td th:text="${project.wastedDays}"></td>
             <td th:text="${project.description}"></td>
             <td th:text="${project.dbPath}"></td>
             <td th:text="${project.tags}"></td>
+            <td th:text="${project.costs}"></td>
+
             <td>
                 <a th:href="@{/projects/edit/{id}(id = ${project.id})}"
                 class="btn btn-primary">Update</a>

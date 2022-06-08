@@ -21,6 +21,7 @@ class ProjectServiceImplTest {
     private final Date CREATION = new Date(50,Calendar.APRIL,17);
     private final String TAGS = "hard smart money";
     private final String PATH = "/iceberg/db";
+    private final double COSTS = 75.6;
 
     @Autowired
     private ProjectService service;
@@ -37,6 +38,7 @@ class ProjectServiceImplTest {
         assertEquals(CREATION, fromDB.getDateOfCreation());
         assertEquals(TAGS, fromDB.getTags());
         assertEquals(PATH, fromDB.getDbPath());
+        assertEquals(COSTS, fromDB.getCosts());
 
     }
 
@@ -57,6 +59,7 @@ class ProjectServiceImplTest {
         assertEquals(new Date(48,Calendar.JUNE, 20), fromDB.getDateOfCreation());
         assertEquals("ta", fromDB.getTags());
         assertEquals("pa", fromDB.getDbPath());
+        assertEquals(85.7, fromDB.getCosts());
     }
 
     @Test
@@ -65,7 +68,7 @@ class ProjectServiceImplTest {
         Project simple = createProject();
         service.saveProject(simple);
 
-        Project forUpdateProject = new Project("na", 2.5, "desc", new Date(48,Calendar.JUNE, 20), "ta", "pa");
+        Project forUpdateProject = new Project("na", 2.5, "desc", new Date(48,Calendar.JUNE, 20), "ta", "pa", 85.7);
         forUpdateProject.setId(1);
 
         Project updatedProject = service.updateProject(forUpdateProject);
@@ -77,6 +80,7 @@ class ProjectServiceImplTest {
         assertEquals(new Date(48,Calendar.JUNE, 20), updatedProject.getDateOfCreation());
         assertEquals("ta", updatedProject.getTags());
         assertEquals("pa", updatedProject.getDbPath());
+        assertEquals(85.7, updatedProject.getCosts());
     }
 
     @Test
@@ -87,6 +91,6 @@ class ProjectServiceImplTest {
     }
 
     Project createProject(){
-        return new Project(NAME,WASTED,DESCRIPTION,CREATION,TAGS,PATH);
+        return new Project(NAME,WASTED,DESCRIPTION,CREATION,TAGS,PATH,COSTS);
     }
 }
