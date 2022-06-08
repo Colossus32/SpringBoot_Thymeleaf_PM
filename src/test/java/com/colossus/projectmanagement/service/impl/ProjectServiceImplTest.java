@@ -28,7 +28,6 @@ class ProjectServiceImplTest {
     @Test
     void saveProject() {
         Project toSave = createProject();
-        service.saveProject(toSave);
 
         Project fromDB = service.saveProject(toSave);
 
