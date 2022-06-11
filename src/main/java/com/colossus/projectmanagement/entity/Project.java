@@ -1,8 +1,11 @@
 package com.colossus.projectmanagement.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -30,10 +33,17 @@ public class Project {
 
     private double costs;
 
+    @Column(nullable = false)
+    private boolean finished;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfFinishing;
+
     public Project() {
     }
 
-    public Project(String name, double wastedDays, String description, Date dateOfCreation, String tags, String dbPath, double costs) {
+    public Project(String name, double wastedDays, String description, Date dateOfCreation, String tags,
+                   String dbPath, double costs, boolean finished, Date dateOfFinishing) {
         this.name = name;
         this.wastedDays = wastedDays;
         this.description = description;
@@ -41,6 +51,8 @@ public class Project {
         this.tags = tags;
         this.dbPath = dbPath;
         this.costs = costs;
+        this.finished = finished;
+        this.dateOfFinishing = dateOfFinishing;
     }
 
     public long getId() {
@@ -79,8 +91,8 @@ public class Project {
         return dateOfCreation;
     }
 
-    public void setDateOfCreation(Date dateOfCreaation) {
-        this.dateOfCreation = dateOfCreaation;
+    public void setDateOfCreation(Date dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 
     public String getTags() {
@@ -105,5 +117,20 @@ public class Project {
 
     public void setCosts(double costs) {
         this.costs = costs;
+    }
+
+    public Date getDateOfFinishing() {
+        return dateOfFinishing;
+    }
+
+    public void setDateOfFinishing(Date dateOfFinishing) {
+        this.dateOfFinishing = dateOfFinishing;
+    }
+
+    public boolean getFinished() {
+        if (dateOfFinishing == null) return false;
+
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime().after(dateOfFinishing);
     }
 }

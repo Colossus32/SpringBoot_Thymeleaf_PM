@@ -32,18 +32,12 @@
 
 <div class="container">
     <div class="row">
-        <h1>List of Projects</h1>
+        <h1>Report for this month</h1>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
-            <a th:href="@{/projects/new}" class="btn btn-primary btn-sm mb-3">Add project</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-3">
-            <a th:href="@{/projects/report}" class="btn btn-primary btn-sm mb-3">Get report</a>
+            <a th:href="@{/projects}" class="btn btn-primary btn-sm mb-3">All projects</a>
         </div>
     </div>
 
@@ -51,40 +45,27 @@
         <thead class="table-dark">
         <tr>
             <th>Project name</th>
-            <th>Date of creation</th>
-            <th>Wasted days</th>
-            <th>Description</th>
-            <th>Path in DB</th>
-            <th>Tags</th>
             <th>Costs</th>
-            <th>Finished</th>
-            <th>Action</th>
+            <th>Wasted days</th>
+            <th>Date of finishing</th>
         </tr>
         </thead>
 
         <tbody>
-        <!--/*@thymesVar id="projects" type="java.util.List<com.colossus.projectmanagement.entity.Project>"*/-->
-        <tr th:each="project : ${projects}">
-            <td th:text="${project.name}"></td>
-            <td th:text="${#dates.format(project.dateOfCreation, 'dd-MMMM-yyyy')}"></td>
-            <td th:text="${project.wastedDays}"></td>
-            <td th:text="${project.description}"></td>
-            <td th:text="${project.dbPath}"></td>
-            <td th:text="${project.tags}"></td>
-            <td th:text="${project.costs}"></td>
-            <td th:text="${project.finished}"></td>
 
-            <td>
-                <a th:href="@{/projects/edit/{id}(id = ${project.id})}"
-                class="btn btn-primary">Update</a>
-                <a th:href="@{/projects/{id}(id = ${project.id})}"
-                   class="btn btn-danger">Delete</a>
-            </td>
+        <!--/*@thymesVar id="reports" type="com.colossus.projectmanagement.entity.DTO.ProjectDTO"*/-->
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.name}"></td>
+            <td th:text="${report.costs}"></td>
+            <td th:text="${report.wastedDays}"></td>
+            <td th:text="${#dates.format(report.dateOfFinishing, 'dd-MMMM-yyyy')}"></td>
         </tr>
-
         </tbody>
+        <h2 th:text="TOTAL+ .... + ${total}"/>
     </table>
 </div>
+
+
 
 </body>
 </html>

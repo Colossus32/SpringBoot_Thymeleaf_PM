@@ -1,5 +1,6 @@
 package com.colossus.projectmanagement.controller;
 
+import com.colossus.projectmanagement.entity.DTO.ProjectDTO;
 import com.colossus.projectmanagement.entity.Project;
 import com.colossus.projectmanagement.service.ProjectService;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class ProjectController {
@@ -61,6 +64,7 @@ public class ProjectController {
         projectFromDB.setDescription(project.getDescription());
         projectFromDB.setDbPath(project.getDbPath());
         projectFromDB.setTags(project.getTags());
+        projectFromDB.setDateOfFinishing(project.getDateOfFinishing());
 
         //save it to DB
         service.updateProject(projectFromDB);
@@ -73,5 +77,15 @@ public class ProjectController {
 
         service.deleteProjectById(id);
         return "redirect:/projects";
+    }
+
+    @GetMapping("/projects/report")
+    public String getReport(Model model){
+        List<ProjectDTO> list = service.getReport();
+        model.addAttribute("reports", list);
+        double total = list.stream().mapToDouble(ProjectDTO::getCosts).sum();
+        model.addAttribute("total", total);
+
+        return "/report";
     }
 }

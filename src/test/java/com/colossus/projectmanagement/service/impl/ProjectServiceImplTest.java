@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ProjectServiceImplTest {
@@ -22,6 +22,8 @@ class ProjectServiceImplTest {
     private final String TAGS = "hard smart money";
     private final String PATH = "/iceberg/db";
     private final double COSTS = 75.6;
+    private final boolean FINISHED = false;
+    private final Date FINISHINGDATE = new Date(51,Calendar.MAY,21);
 
     @Autowired
     private ProjectService service;
@@ -39,7 +41,8 @@ class ProjectServiceImplTest {
         assertEquals(TAGS, fromDB.getTags());
         assertEquals(PATH, fromDB.getDbPath());
         assertEquals(COSTS, fromDB.getCosts());
-
+        assertFalse(fromDB.getFinished());
+        assertEquals(FINISHINGDATE, fromDB.getDateOfFinishing());
     }
 
     @Test
@@ -60,6 +63,8 @@ class ProjectServiceImplTest {
         assertEquals("ta", fromDB.getTags());
         assertEquals("pa", fromDB.getDbPath());
         assertEquals(85.7, fromDB.getCosts());
+        assertTrue(fromDB.getFinished());
+        assertEquals(new Date(49,Calendar.SEPTEMBER, 25), fromDB.getDateOfFinishing());
     }
 
     @Test
@@ -68,7 +73,9 @@ class ProjectServiceImplTest {
         Project simple = createProject();
         service.saveProject(simple);
 
-        Project forUpdateProject = new Project("na", 2.5, "desc", new Date(48,Calendar.JUNE, 20), "ta", "pa", 85.7);
+        Project forUpdateProject = new Project
+                ("na", 2.5, "desc", new Date(48,Calendar.JUNE, 20),
+                        "ta", "pa", 85.7,true,new Date(49,Calendar.SEPTEMBER, 25) );
         forUpdateProject.setId(1);
 
         Project updatedProject = service.updateProject(forUpdateProject);
@@ -81,6 +88,8 @@ class ProjectServiceImplTest {
         assertEquals("ta", updatedProject.getTags());
         assertEquals("pa", updatedProject.getDbPath());
         assertEquals(85.7, updatedProject.getCosts());
+        assertTrue(updatedProject.getFinished());
+        assertEquals(new Date(49,Calendar.SEPTEMBER, 25), updatedProject.getDateOfFinishing());
     }
 
     @Test
@@ -91,6 +100,6 @@ class ProjectServiceImplTest {
     }
 
     Project createProject(){
-        return new Project(NAME,WASTED,DESCRIPTION,CREATION,TAGS,PATH,COSTS);
+        return new Project(NAME,WASTED,DESCRIPTION,CREATION,TAGS,PATH,COSTS,FINISHED,FINISHINGDATE);
     }
 }

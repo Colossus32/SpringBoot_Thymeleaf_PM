@@ -1,8 +1,10 @@
 package com.colossus.projectmanagement.service.impl;
 
+import com.colossus.projectmanagement.entity.DTO.ProjectDTO;
 import com.colossus.projectmanagement.entity.Project;
 import com.colossus.projectmanagement.repository.ProjectRepository;
 import com.colossus.projectmanagement.service.ProjectService;
+import com.colossus.projectmanagement.util.ProjectConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -47,19 +49,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public String getReport() {
+    public List<ProjectDTO> getReport() {
 
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR) + 1900;
-        //int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
 
-        StringBuilder result = new StringBuilder("");
-
-        repository.findAll().stream()
-                .filter(project -> project.getDateOfCreation().getYear() == year)
-                //.filter(project -> project.getDateOfCreation().getMonth() == month)
-                .forEach(project -> result.append(project.getId()).append(" ").append(project.getName()).append("\n"));
-
-        return "result.toString()";
+        return repository.findAll().stream()
+                .filter(Project::getFinished)
+                .filter(project -> project.getDateOfFinishing().getYear()+1900 == year )
+                .filter(project -> project.getDateOfFinishing().getMonth() == month)
+                .map(ProjectConverter::convertToDTO)
+                .collect(Collectors.toList());
     }
 }
