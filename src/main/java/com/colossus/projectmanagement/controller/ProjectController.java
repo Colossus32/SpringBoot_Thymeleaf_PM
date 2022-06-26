@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Controller
+@Controller()
 public class ProjectController {
 
     private final ProjectService service;
@@ -20,6 +20,7 @@ public class ProjectController {
     public ProjectController(ProjectService service) {
         this.service = service;
     }
+
 
     @GetMapping("/projects")
     public String listOfProjects(Model model){

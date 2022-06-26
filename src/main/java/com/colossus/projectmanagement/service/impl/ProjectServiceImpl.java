@@ -53,7 +53,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) - 1; // previous month
 
         return repository.findAll().stream()
                 .filter(Project::getFinished)
